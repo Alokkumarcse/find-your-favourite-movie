@@ -26,7 +26,6 @@ export default class MovieCard extends Component {
             </div>
          </div>
       </div>
-      
    )
   }
 }

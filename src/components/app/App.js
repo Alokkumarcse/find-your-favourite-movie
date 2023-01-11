@@ -17,7 +17,7 @@ function App() {
 
         <div className="">
           {data.map((movie) => {
-            return (<MovieCard movie={movie} />)
+            return (<MovieCard movie={movie} key={`${movie.Year}${movie.Title}`} />)
           })}
         </div>
 
