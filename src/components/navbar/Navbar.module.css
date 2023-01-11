@@ -1,0 +1,19 @@
+.nav {
+   box-sizing: border-box;
+   overflow-x: none;
+   width: 100vw;
+   display: flex;
+   justify-content: center;
+   padding:20px;
+   background-image: linear-gradient(to left, rgb(184, 149, 149), rgb(199, 199, 137), rgb(209, 125, 111));
+}
+
+.input {
+   padding:10px;
+   border-radius: 5px;
+   font-size: 16px;
+}
+
+.input:focus{
+   outline: none;
+}
