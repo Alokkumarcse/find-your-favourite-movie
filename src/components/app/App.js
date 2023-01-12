@@ -30,7 +30,7 @@ class App extends Component {
 
 
   render() {
-    const {store} = this.props;
+    const {movieList} = this.props.store.getState(); // { movieList: [], favouriteList: [] }
     return (
       <div className={style.app}>
         <Navbar />
@@ -41,7 +41,8 @@ class App extends Component {
           </div>
 
           <div className="">
-            {store.getState().map((movie) => {
+            {/* movieList render here inside MovieCard pass as props */}
+            {movieList.map((movie) => {
               return (<MovieCard movie={movie} key={`${movie.Year}${movie.Title}`} />)
             })}
           </div>

@@ -27,13 +27,13 @@
 //    movie: {hello: "javascript"},
 // }
 
-//action type 
+//action type, generally describe action type in this way
 export const ADD_MOVIE = "ADD_MOVIE";
 
-// action creator 
-export function addMovies(movie) {
+// action creator, which is returning the object.
+export function addMovies(movieList) {
    return ({
       type:ADD_MOVIE,
-      movie
+      movieList
    })
 }

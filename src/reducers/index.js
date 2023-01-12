@@ -1,9 +1,23 @@
 import { ADD_MOVIE } from "../actions"; // importing action type
 
-export default function movie(state = [], action ) {
+// we can scale out state from array list to an object of different list so that we can hold different type of data
+const initialMovieState = {
+   movieList:[],
+   favouriteList:[]
+}
+
+export default function movie(state = initialMovieState, action ) {
    if(action.type === ADD_MOVIE){
-      return action.movie;
+      return (
+         {
+            // spreading the state using ... (spread) operator
+            ...state,
+            // rewriting the movieList, bcz new movieList is coming from action 
+            movieList: action.movieList
+         }
+      )
    }
+   // if action type don't matched than return old state as it is.
    return state;
 }
 
