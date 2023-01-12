@@ -1,22 +1,31 @@
+import { Component } from 'react';
+
 
 import Navbar from '../navbar/Navbar';
 import MovieCard from '../movie-card/MovieCard';
 import Footer from '../footer/Footer';
 import {data} from '../data/data';
 import style from './App.module.css';
-import { Component } from 'react';
+
+
+import { addMovies } from '../../actions';
 
 class App extends Component {
   componentDidMount() {
     const {store} = this.props;
     // make an api call to fetch data
     // use the data and dispatch the action 
-    store.dispatch({
-      type:"ADD_MOVIE",
-      movie: data,
-    })
+    // store.dispatch({
+    //   type:"ADD_MOVIE",
+    //   movie: data,
+    // })
+    // here writing the action object, we make an action function which is returning object same as above in dispatch()
+    store.dispatch(addMovies(data));
 
-    console.log(store.getState());
+    //after dispatch the action, immediately if any listener is present than they are executed
+    store.subscribe(() => {
+      this.forceUpdate();
+    });
   }
 
 

@@ -1,5 +1,7 @@
+import { ADD_MOVIE } from "../actions"; // importing action type
+
 export default function movie(state = [], action ) {
-   if(action.type === 'ADD_MOVIE'){
+   if(action.type === ADD_MOVIE){
       return action.movie;
    }
    return state;
