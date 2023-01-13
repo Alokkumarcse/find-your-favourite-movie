@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import style from './MovieCard.module.css';
-import { addFavourite, removeFavourite } from '../../actions';
+import { addToFavourite, removeFromFavourite } from '../../actions';
 
 
 
@@ -10,13 +10,13 @@ export default class MovieCard extends Component {
    // Favourite btn click handler
    addToFavourite = () => {
       const {movie, dispatch} = this.props;
-      dispatch(addFavourite(movie));
+      dispatch(addToFavourite(movie));
    }
 
    // Remove from favourite list handler 
    removeFromFavourite = () => {
       const {movie, dispatch} = this.props;
-      dispatch(removeFavourite(movie));
+      dispatch(removeFromFavourite(movie));
    }
    
    render() {

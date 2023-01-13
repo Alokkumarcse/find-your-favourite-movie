@@ -13,8 +13,8 @@
 
 //action type, generally describe action type in this way
 export const ADD_MOVIE = "ADD_MOVIE";
-export const ADD_FAVOURITE = "ADD_FAVOURITE";
-export const REMOVE_FAVOURITE ="REMOVE_FAVOURITE";
+export const ADD_TO_FAVOURITE = "ADD_TO_FAVOURITE";
+export const REMOVE_FROM_FAVOURITE ="REMOVE_FROM_FAVOURITE";
 
 // action creator, which is returning the object.
 export function addMovies(movieList) {
@@ -26,19 +26,19 @@ export function addMovies(movieList) {
    )
 }
 
-export function addFavourite(movie) {
+export function addToFavourite(movie) {
    return (
       {
-         type:ADD_FAVOURITE,
+         type:ADD_TO_FAVOURITE,
          movie,
       }
    )
 }
 
-export function removeFavourite(movie) {
+export function removeFromFavourite(movie) {
    return(
       {
-         type:REMOVE_FAVOURITE,
+         type:REMOVE_FROM_FAVOURITE,
          movie,
       }
    )

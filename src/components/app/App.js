@@ -41,6 +41,7 @@ class App extends Component {
     const {store} = this.props;
     const {movieList} = this.props.store.getState(); // { movieList: [], favouriteList: [] }
     console.log(this.props.store.getState());
+    console.log("Re-render");
     return (
       <div className={style.app}>
         <Navbar />
