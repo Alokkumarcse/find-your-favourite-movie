@@ -1,9 +1,10 @@
-import { ADD_MOVIE, ADD_TO_FAVOURITE, REMOVE_FROM_FAVOURITE } from "../actions"; // importing action type
+import { ADD_MOVIE, ADD_TO_FAVOURITE, REMOVE_FROM_FAVOURITE, SHOW_FAVOURITE_TAB,  } from "../actions"; // importing action type
 
 // we can scale out state from array list to an object of different list so that we can hold different type of data
 const initialMovieState = {
    movieList:[],
-   favouriteList:[]
+   favouriteList:[],
+   showFavouriteTab:false,
 }
 
 // reducer which is return new state 
@@ -31,6 +32,13 @@ export default function movies(state = initialMovieState, action ) {
             {
                ...state,
                favouriteList: filterFavList,
+            }
+         )
+      case SHOW_FAVOURITE_TAB: 
+         return(
+            {
+               ...state,
+               showFavouriteTab: action.val,
             }
          )
       default: return state;

@@ -15,6 +15,7 @@
 export const ADD_MOVIE = "ADD_MOVIE";
 export const ADD_TO_FAVOURITE = "ADD_TO_FAVOURITE";
 export const REMOVE_FROM_FAVOURITE ="REMOVE_FROM_FAVOURITE";
+export const SHOW_FAVOURITE_TAB = "SHOW_FAVOURITE_TAB";
 
 // action creator, which is returning the object.
 export function addMovies(movieList) {
@@ -40,6 +41,15 @@ export function removeFromFavourite(movie) {
       {
          type:REMOVE_FROM_FAVOURITE,
          movie,
+      }
+   )
+}
+
+export function showFavouriteTab(val){
+   return(
+      {
+         type:SHOW_FAVOURITE_TAB,
+         val
       }
    )
 }
