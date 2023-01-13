@@ -1,4 +1,4 @@
-import { ADD_MOVIE } from "../actions"; // importing action type
+import { ADD_MOVIE, ADD_FAVOURITE, REMOVE_FAVOURITE } from "../actions"; // importing action type
 
 // we can scale out state from array list to an object of different list so that we can hold different type of data
 const initialMovieState = {
@@ -6,19 +6,27 @@ const initialMovieState = {
    favouriteList:[]
 }
 
-export default function movie(state = initialMovieState, action ) {
-   if(action.type === ADD_MOVIE){
-      return (
-         {
-            // spreading the state using ... (spread) operator
-            ...state,
-            // rewriting the movieList, bcz new movieList is coming from action 
-            movieList: action.movieList
-         }
-      )
+// reducer which is return new state 
+// we use here switch case to operate on different type of action
+export default function movies(state = initialMovieState, action ) {
+   switch(action.type){
+      case ADD_MOVIE: 
+         return (
+            {
+               ...state,
+               movieList: action.movieList
+            }
+         )
+      case ADD_FAVOURITE:
+         return (
+            {
+               ...state,
+               favouriteList: [action.movie, ...state.favouriteList]
+            }
+         )
+      case REMOVE_FAVOURITE:
+      default: return state;
    }
-   // if action type don't matched than return old state as it is.
-   return state;
 }
 
 //what is reducer ?

@@ -5,10 +5,12 @@ import './index.css';
 import App from './components/app/App';
 
 //import reducer to use as argument in createStore() 
-import movie from './reducers';
-//Create store using createStore() to store state
-const store = createStore(movie);
+import movies from './reducers';
+//Create store using createStore() we need to pass reducer as argument in createStore()
+const store = createStore(movies);
 console.log(store);
+
+
 // console.log(store.getState());
 // // Dispatch the action to reducer 
 // store.dispatch({
@@ -16,8 +18,6 @@ console.log(store);
 //   movie:[{name:"superman", release:2013}]
 // });
 // console.log(store.getState());
-
-
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
