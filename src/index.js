@@ -5,9 +5,9 @@ import './index.css';
 import App from './components/app/App';
 
 //import reducer to use as argument in createStore() 
-import movies from './reducers';
+import rootReducer from './reducers';
 //Create store using createStore() we need to pass reducer as argument in createStore()
-const store = createStore(movies);
+const store = createStore(rootReducer);
 console.log(store);
 
 

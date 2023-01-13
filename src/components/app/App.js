@@ -29,7 +29,10 @@ class App extends Component {
 
   // check movie already present in fav list or not
   isFavourite = (movie) => {
-    const {favouriteList} = this.props.store.getState();
+    //get movieState from store
+    const {movieState} = this.props.store.getState();
+    // get favouriteList from movieState object
+    const {favouriteList} = movieState;
     const index = favouriteList.indexOf(movie);
     if(index !== -1){
       return true;
@@ -44,10 +47,14 @@ class App extends Component {
   }
   
   // Render component
-  render() {
+  render() { 
     const {store} = this.props;
-    // { movieList: [], favouriteList: [], showFavouriteTab:boolean} in our state these type of data present
-    const {movieList, favouriteList, showFavouriteTab} = store.getState(); 
+    // our store state looks like this { movieState:{}, searchState:{} } bcz of combining of many reducer in rootReducer
+    const {movieState, searchState} = store.getState();
+
+    // { movieList: [], favouriteList: [], showFavouriteTab:boolean} in our movieState's data, so access by moviesState object.
+    const {movieList, favouriteList, showFavouriteTab} = movieState; 
+
     //select which list is going to shown
     const displayList = showFavouriteTab ? favouriteList: movieList;
     
@@ -76,7 +83,7 @@ class App extends Component {
               )})
             }
           </div>
-         
+          {displayList.length === 0 ? <div style={{textAlign:"center", padding:"10px", fontSize:"16px"}}>No movie in Favourite list:)</div>: null}
 
         </main>
         <Footer />
