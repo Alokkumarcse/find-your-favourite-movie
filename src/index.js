@@ -11,7 +11,7 @@ import rootReducer from './reducers';
 // middleware take argument as (object, next, action)
 // we write here logger middleware  function loggerMiddleware(obj, next, action)
 // we executed loggerMiddleware in curried from function loggerMiddleware({property: value})(next)(action)
-const loggerMiddleware = function({dispatch, getState}){
+/*const loggerMiddleware = function({dispatch, getState}){
   return function(next) {
     return function(action){
       console.log("Logger Middleware");
@@ -20,6 +20,13 @@ const loggerMiddleware = function({dispatch, getState}){
       next(action);
     }
   }
+}*/
+
+// we can write middleware in using arrow function formate
+const loggerMiddleware = ({dispatch, getState}) => (next) => (action) => {
+  console.log("Logger Middleware");
+  console.log("Action type", action.type);
+  next(action);
 }
 
 //Create store using createStore() we need to pass reducer as argument in createStore()
