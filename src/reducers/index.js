@@ -74,17 +74,17 @@ const initialRootState = {
    searchState: initialSearchState,
 }
 
-// export default function rootReducer(state= initialRootState, action){
-//    return {
-//       // movies data manage by moviesReducer
-//       movieState: moviesReducer(state.movieState, action),
-//       // search data manage by searchReducer
-//       searchState: searchReducer(state.searchState, action),
-//    }
-// }
+export default function rootReducer(state= initialRootState, action){
+   return {
+      // movies data manage by moviesReducer
+      movieState: moviesReducer(state.movieState, action),
+      // search data manage by searchReducer
+      searchState: searchReducer(state.searchState, action),
+   }
+}
 
-//  we can not need to create rootReducer by self, it is done by redux for us
-export default combineReducers({
-   movieState: moviesReducer,
-   searchState: searchReducer,
-})
+// //  we can not need to create rootReducer by self, it is done by redux for us
+// export default combineReducers({
+//    movieState: moviesReducer,
+//    searchState: searchReducer,
+// })
