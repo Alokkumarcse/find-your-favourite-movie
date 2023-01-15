@@ -7,6 +7,7 @@ import App from './components/app/App';
 //import reducer to use as argument in createStore() 
 import rootReducer from './reducers';
 
+
 //add middleware in app to perform some operation between action triggered  and dispatch the action
 // middleware take argument as (object, next, action)
 // we write here logger middleware  function loggerMiddleware(obj, next, action)
@@ -22,16 +23,28 @@ import rootReducer from './reducers';
   }
 }*/
 
-// we can write middleware in using arrow function formate
+// we can write middleware in another way using arrow function formate
 const loggerMiddleware = ({dispatch, getState}) => (next) => (action) => {
   console.log("Logger Middleware");
-  console.log("Action type", action.type);
+  if(typeof action !== 'function'){
+    console.log("Action type", action.type);
+  }
+  next(action);
+}
+
+// creating thunk, it is middleware which is return an function(dispatch) method
+const thunk = ({dispatch, getState}) => (next) => (action) => {
+  // if our condition match than dispatch action
+  if(typeof action === 'function'){
+    action(dispatch);
+    return;
+  }
   next(action);
 }
 
 //Create store using createStore() we need to pass reducer as argument in createStore()
 // here we can pass any middleware by using applyMiddleware(middleware name) method
-const store = createStore(rootReducer, applyMiddleware(loggerMiddleware) );
+const store = createStore(rootReducer, applyMiddleware(loggerMiddleware, thunk) );
 // console.log(store);
 
 // console.log(store.getState());

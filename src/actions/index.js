@@ -16,8 +16,9 @@ export const ADD_MOVIE = "ADD_MOVIE";
 export const ADD_TO_FAVOURITE = "ADD_TO_FAVOURITE";
 export const REMOVE_FROM_FAVOURITE ="REMOVE_FROM_FAVOURITE";
 export const SHOW_FAVOURITE_TAB = "SHOW_FAVOURITE_TAB";
+export const HANDLE_MOVIE_SEARCH = "HANDLE_MOVIE_SEARCH";
 
-// action creator, which is returning the object.
+// addMovies() action creator, which is returning the object.
 export function addMovies(movieList) {
    return (
       {
@@ -27,6 +28,7 @@ export function addMovies(movieList) {
    )
 }
 
+// addToFavourite() action creator
 export function addToFavourite(movie) {
    return (
       {
@@ -36,6 +38,7 @@ export function addToFavourite(movie) {
    )
 }
 
+// removeFromFavourite() action creator
 export function removeFromFavourite(movie) {
    return(
       {
@@ -45,6 +48,7 @@ export function removeFromFavourite(movie) {
    )
 }
 
+// showFavouriteTab() action creator, which is returning an action object 
 export function showFavouriteTab(val){
    return(
       {
@@ -52,4 +56,20 @@ export function showFavouriteTab(val){
          val
       }
    )
+}
+
+// handleMovieSearch() action creator, which is returning an action function which is take dispatch as argument
+export function handleMovieSearch(inputText) {
+   const api = `http://www.omdbapi.com/?apikey=7acddf26&i=tt3896198`;
+   // we do async operation in action creator with help of thunk. 
+   // returning action as a method, function(dispatch) is thunk() method
+   return function(dispatch) {
+      fetch(api)
+      .then(resolve => resolve.json())
+      .then(data => {
+         console.log(data);
+         // dispatch an action to reducer to update the store with fetched data
+
+      })
+   }
 }

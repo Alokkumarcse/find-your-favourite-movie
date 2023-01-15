@@ -63,7 +63,7 @@ class App extends Component {
 
     return (
       <div className={style.app}>
-        <Navbar />
+        <Navbar store={store} />
         <main className="">
           <div className={style.tabs}>
             <div className={`${style.movie__tab} ${showFavouriteTab?'':style.active__tab}`} onClick={() => this.onChangeTab(false)}>Movies</div>
