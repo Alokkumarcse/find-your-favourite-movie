@@ -3,7 +3,7 @@ import style from './Navbar.module.css';
 
 
 // Importing handleMovieSearch() action creator from action
-import { handleMovieSearch } from '../../actions';
+import { handleMovieSearchAction } from '../../actions';
 
 
 export default class Navbar extends Component {
@@ -15,7 +15,6 @@ export default class Navbar extends Component {
       showSearchedMovie: true,
     }
   }
-
 
   // input given in search box
   inputTextForSearch = (event) => { 
@@ -29,7 +28,7 @@ export default class Navbar extends Component {
     const {inputText} = this.state;
     const {dispatch} = this.props.store;
     // dispatch handleMovieSearch() action to fetch data form api, store fetched into search result{}
-    dispatch(handleMovieSearch(inputText))
+    dispatch(handleMovieSearchAction(inputText))
   } 
 
   render() {

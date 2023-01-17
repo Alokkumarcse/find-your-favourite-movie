@@ -1,33 +1,49 @@
 import { Component } from 'react';
 
-
+// importing styles for App component
+import style from './App.module.css';
+// importing various components 
 import Navbar from '../navbar/Navbar';
 import MovieCard from '../movie-card/MovieCard';
 import Footer from '../footer/Footer';
+// we use some static data as now bcz not making any api call to get data.
 import {data} from '../data/data';
-import style from './App.module.css';
 
-import { addMovies, showFavouriteTab } from '../../actions';
+// importing some actions
+import { addMoviesAction, showFavouriteTabAction } from '../../actions';
 
 class App extends Component {
   componentDidMount() {
     const {store} = this.props;
-    // make an api call to fetch data
-    // use the data and dispatch the action 
+    /** make an api call to fetch data but here as of now we don't make any api call.*/ 
+
+    /** use the {data} file to get all stored movie data list and dispatch the action with these data. */
     // store.dispatch({
     //   type:"ADD_MOVIE",
     //   movie: data,
     // })
-    // here writing the action object, we make an action function which is returning object same as above in dispatch()
-    store.dispatch(addMovies(data)); 
+    
 
-    //after dispatch the action, immediately if any listener is present than they are executed
+    /**
+    * here writing the action object, we make an action function() known as action creator,
+    * which is returning object same as above in dispatch() method.
+    */
+    store.dispatch(addMoviesAction(data)); 
+
+    /** after dispatch the action, immediately if any listener is present than they are going to executed,
+    * Listener is nothing but a call back function which is perform some async operations.
+    */ 
     store.subscribe(() => {
+      //here we use forceUpdate() method to update our ui bcz store is changed but we generally not use it,
+      // To update our UI whenever store is changed we add some listener to do this.
       this.forceUpdate();
     });
   }
 
-  // check movie already present in fav list or not
+  /** check movie already present in favourite list or not and return boolean value.
+  * help of this boolen value we add movie in favourite list or remove from favourite list
+  * 
+  */
   isFavourite = (movie) => {
     //get movieState from store
     const {movieState} = this.props.store.getState();
@@ -40,10 +56,10 @@ class App extends Component {
     return false;
   }
 
-  // Handle tab change click
+  /** Function for handling tab change click event */
   onChangeTab = (val) => {
     // dispatch the show favourite tab action 
-    this.props.store.dispatch(showFavouriteTab(val));
+    this.props.store.dispatch(showFavouriteTabAction(val));
   }
   
   // Render component
@@ -63,11 +79,20 @@ class App extends Component {
 
     return (
       <div className={style.app}>
+        {/* Rendering Navbar component here */}
         <Navbar store={store} />
+
         <main className="">
+          {/* Movie and Favourite tabs of app */}
           <div className={style.tabs}>
-            <div className={`${style.movie__tab} ${showFavouriteTab?'':style.active__tab}`} onClick={() => this.onChangeTab(false)}>Movies</div>
-            <div className={`${style.fav__tab} ${showFavouriteTab?style.active__tab:''}`} onClick={() => this.onChangeTab(true)}>Favourite</div>
+            <div 
+              className={`${style.movie__tab} ${showFavouriteTab?'':style.active__tab}`} 
+              onClick={() => this.onChangeTab(false)}
+            > Movies</div>
+            <div 
+              className={`${style.fav__tab} ${showFavouriteTab?style.active__tab:''}`} 
+              onClick={() => this.onChangeTab(true)}
+            > Favourite</div>
           </div>
 
           <div className="">
@@ -83,9 +108,15 @@ class App extends Component {
               )})
             }
           </div>
-          {displayList.length === 0 ? <div style={{textAlign:"center", padding:"10px", fontSize:"16px"}}>No movie in Favourite list:)</div>: null}
-
+          {/* this logic for show message when favourte list is empty and we click on the favourite tab */}
+          {
+            displayList.length === 0 
+            ? <div style={{textAlign:"center", padding:"10px", fontSize:"16px"}}>No movie in Favourite list:)</div>
+            : null
+          }
         </main>
+
+        {/* Rendering Footer component here */}
         <Footer />
       </div>
     );
