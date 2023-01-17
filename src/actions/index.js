@@ -60,6 +60,7 @@ export function showFavouriteTab(val){
 
 // handleMovieSearch() action creator, which is returning an action function which is take dispatch as argument
 export function handleMovieSearch(inputText) {
+   console.log("thunk middleware is invoked");
    const api = `http://www.omdbapi.com/?apikey=7acddf26&i=tt3896198`;
    // we do async operation in action creator with help of thunk. 
    // returning action as a method, function(dispatch) is thunk() method

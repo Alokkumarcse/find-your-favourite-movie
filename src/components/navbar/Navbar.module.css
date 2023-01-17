@@ -8,12 +8,29 @@
    background-image: linear-gradient(to left, rgb(184, 149, 149), rgb(199, 199, 137), rgb(209, 125, 111));
 }
 
-.input {
-   padding:10px;
-   border-radius: 5px;
+.input,
+.search {
+   padding:5px 7px;
+   border: none;
    font-size: 16px;
+   box-shadow: 0 3px 5px 0 rgb(199, 211, 165);
+}
+
+.input {
+   border-top-left-radius: 5px;
+   border-bottom-left-radius: 5px;
 }
 
 .input:focus{
    outline: none;
 }
+
+.search {
+   border-top-right-radius: 5px;
+   border-bottom-right-radius: 5px;
+   background-color: tomato;
+   cursor: pointer;
+}
+
+
+

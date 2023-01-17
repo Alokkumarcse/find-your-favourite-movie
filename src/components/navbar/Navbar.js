@@ -43,7 +43,7 @@ export default class Navbar extends Component {
               onChange={this.inputTextForSearch}
             />
             <button 
-              className='' 
+              className={style.search} 
               onClick={this.handleSearch}
             > search</button>
          </div>

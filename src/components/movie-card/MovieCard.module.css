@@ -55,9 +55,10 @@
 .fav__btn,
 .unfav__btn {
    background-color: rgb(59, 98, 226);
-   border-radius: 10px;
-   padding:5px 10px;
+   border-radius: 7px;
+   padding:3px 10px;
    cursor: pointer;
+   font-weight: 450;
 }
 
 .unfav__btn {
