@@ -43,9 +43,9 @@ const loggerMiddleware = ({dispatch, getState}) => (next) => (action) => {
   next(action);
 }
 
-/**  creating thunk, it is middleware which is return an function() by action. */
+/**  creating thunk, it is middleware which is get an action function(dispatch) by returning from action creator. */
 const thunk = ({dispatch, getState}) => (next) => (action) => {
-  // if our condition match than dispatch action
+  /** if our action is an function then invoke that action function with dispatch as a argument to reducer */
   if(typeof action === 'function'){
     action(dispatch);
     return;
