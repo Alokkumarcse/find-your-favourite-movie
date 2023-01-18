@@ -6,7 +6,7 @@ import style from './App.module.css';
 import Navbar from '../navbar/Navbar';
 import MovieCard from '../movie-card/MovieCard';
 import Footer from '../footer/Footer';
-// we use some static data as now bcz not making any api call to get data.
+// we use some static data as of now bcz not making any api call to get data.
 import {data} from '../data/data';
 
 // importing some actions
@@ -41,12 +41,13 @@ class App extends Component {
   }
 
   /** check movie already present in favourite list or not and return boolean value.
-  * help of this boolen value we add movie in favourite list or remove from favourite list
+  * help of this boolean value we add movie in favourite list or remove from favourite list
   * 
   */
   isFavourite = (movie) => {
+    const {store} = this.props;
     //get movieState from store
-    const {movieState} = this.props.store.getState();
+    const {movieState} = store.getState();
     // get favouriteList from movieState object
     const {favouriteList} = movieState;
     const index = favouriteList.indexOf(movie);
@@ -58,17 +59,18 @@ class App extends Component {
 
   /** Function for handling tab change click event */
   onChangeTab = (val) => {
+    const {store} = this.props;
     // dispatch the show favourite tab action 
-    this.props.store.dispatch(showFavouriteTabAction(val));
+    store.dispatch(showFavouriteTabAction(val));
   }
   
   // Render component
   render() { 
     const {store} = this.props;
-    // our store state looks like this { movieState:{}, searchState:{} } bcz of combining of many reducer in rootReducer
+    // our store state looks like this { movieState:{}, searchState:{} } bcz of combining of many reducer in one rootReducer.
     const {movieState, searchState} = store.getState();
 
-    // { movieList: [], favouriteList: [], showFavouriteTab:boolean} in our movieState's data, so access by moviesState object.
+    // { movieList: [], favouriteList: [], showFavouriteTab:boolean } in our movieState's data, so access by moviesState object.
     const {movieList, favouriteList, showFavouriteTab} = movieState; 
 
     //select which list is going to shown

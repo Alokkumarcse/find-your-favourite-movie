@@ -2,22 +2,25 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {createStore, applyMiddleware} from 'redux';
 
-// Stylesheet of index file imported here
+/** Stylesheet of index file imported here */
 import './index.css';
-// APP component imported
+/** App component imported */
 import App from './components/app/App';
 
-// Import reducer to use as argument in createStore() to create store in Redux
-import rootReducer from './reducers';
+/** Import reducer to use as argument in createStore() to create store in Redux */
+// import rootReducer from './reducers';
+/** importing combined reducer */
+import combineReducers from './reducers';
 
 
-/** add middleware in app to perform some operation between action triggered and action dispatch.
+/** add middleware in app to perform some other operations, which is happen after trigger the action 
+*   and action reach to the reducer via dispatcher.
 *   middleware take argument as (object, next, action) , next() take argument as a next middleware,
-*   if not any middleware then dispatch the action. 
+*   if not any middleware then dispatch the action to reducer. 
 */
 
 /** we write here loggerMiddleware function loggerMiddleware(obj, next, action)
-*   we executed loggerMiddleware in curried from of function like this loggerMiddleware({property: value})(next)(action) 
+*   we executed loggerMiddleware in curried from of function like this loggerMiddleware({object})(next)(action) 
 */
 
 // const loggerMiddleware = function({dispatch, getState}){
@@ -25,7 +28,7 @@ import rootReducer from './reducers';
 //     return function(action){
 //       console.log("Logger Middleware");
 //       console.log("Action type", action.type);
-//       // we must be call the next() method to execute next middleware if any otherwise dispatch the action so our data flow work
+//       /** we must be call the next() method to execute next middleware if any, Otherwise dispatch the action so our data flow work */
 //       next(action);
 //     }
 //   }
@@ -52,12 +55,13 @@ const thunk = ({dispatch, getState}) => (next) => (action) => {
 
 
 /**
-* Redux, store has some ability such as create store to hold states, Read the state, Update state,
+* Redux, store has some default ability such as create store to hold states, Read the state, Update state,
 *  subscribe state so whenever state change ui get notify that some change happen in store state.
 * Create store using createStore() we need to pass reducer as argument in createStore()
 *   here we can pass any middleware by using applyMiddleware(middleware name) method
 */
-const store = createStore(rootReducer, applyMiddleware(loggerMiddleware, thunk) );
+// const store = createStore(rootReducer, applyMiddleware(loggerMiddleware, thunk) );
+const store = createStore(combineReducers, applyMiddleware(loggerMiddleware, thunk) );
 // console.log(store);
 // console.log(store.getState());
 

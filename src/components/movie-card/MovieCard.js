@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 /** Importing style form movie card */
 import style from './MovieCard.module.css';
 /** Importing some action creator  */
-import { addToFavouriteAction, addToFavouriteActon, removeFromFavouriteAction } from '../../actions';
+import { addToFavouriteAction, removeFromFavouriteAction } from '../../actions';
 
 
 

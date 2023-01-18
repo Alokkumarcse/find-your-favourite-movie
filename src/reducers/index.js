@@ -80,22 +80,24 @@ export function searchReducer(state= initialSearchState, action){
 *  which is containing all child reducers and use them via rootReducer.
 *  create initial state of rootReducer and rootReducer(state, action) method
 */
-const initialRootState = {
-   movieState: initialMovieState,
-   searchState: initialSearchState,
-}
+// const initialRootState = {
+//    movieState: initialMovieState,
+//    searchState: initialSearchState,
+// }
 
-export default function rootReducer(state= initialRootState, action){
-   return {
-      // movies data manage by moviesReducer
-      movieState: moviesReducer(state.movieState, action),
-      // search data manage by searchReducer
-      searchState: searchReducer(state.searchState, action),
-   }
-}
+// export default function rootReducer(state= initialRootState, action){
+//    return {
+//       // movies data manage by moviesReducer
+//       movieState: moviesReducer(state.movieState, action),
+//       // search data manage by searchReducer
+//       searchState: searchReducer(state.searchState, action),
+//    }
+// }
 
-/** we not need to create rootReducer by self, it is created by redux for us which is combineReducers() method. */
-// export default combineReducers({
-//    movieState: moviesReducer,
-//    searchState: searchReducer,
-// })
+/** we not need to create rootReducer by self, it is created by redux for us which is combineReducers() method. 
+*  internally combineReducers same as rootReducer we create above. 
+*/
+export default combineReducers({
+   movieState: moviesReducer,
+   searchState: searchReducer,
+})
