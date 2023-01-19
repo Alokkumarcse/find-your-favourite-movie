@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 /** Importing style form movie card */
 import style from './MovieCard.module.css';
 /** Importing some action creator  */
-import { addToFavouriteAction, removeFromFavouriteAction } from '../../actions';
+import { addMovieIntoFavouriteListAction, removeMovieFromFavouriteListAction } from '../../actions';
 
 
 
@@ -12,13 +12,13 @@ export default class MovieCard extends Component {
    /** Method for handling Favourite button click event. */
    addToFavourite = () => {
       const {movie, dispatch} = this.props;
-      dispatch(addToFavouriteAction(movie));
+      dispatch(addMovieIntoFavouriteListAction(movie));
    }
 
    /** Method for handling Unfavouriting the movie favourite list event. */
    removeFromFavourite = () => {
       const {movie, dispatch} = this.props;
-      dispatch(removeFromFavouriteAction(movie));
+      dispatch(removeMovieFromFavouriteListAction(movie));
    }
    
    /** Rendering our component */

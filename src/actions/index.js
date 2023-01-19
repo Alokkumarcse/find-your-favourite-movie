@@ -15,38 +15,38 @@
 // }
 
 /** action type, generally describe action type in this way */
-export const ADD_MOVIE = "ADD_MOVIE";
-export const ADD_TO_FAVOURITE = "ADD_TO_FAVOURITE";
-export const REMOVE_FROM_FAVOURITE ="REMOVE_FROM_FAVOURITE";
+export const ADD_MOVIE_INTO_MOVIE_LIST = "ADD_MOVIE_INTO_MOVIE_LIST";
+export const ADD_MOVIE_INTO_FAVOURITE_LIST = "ADD_MOVIE_INTO_FAVOURITE_LIST";
+export const REMOVE_MOVIE_FROM_FAVOURITE_LIST ="REMOVE_FROM_FAVOURITE_LIST";
 export const SHOW_FAVOURITE_TAB = "SHOW_FAVOURITE_TAB";
 export const HANDLE_MOVIE_SEARCH = "HANDLE_MOVIE_SEARCH";
-export const ADD_SEARCH_RESULT = "ADD_SEARCH_RESULT";
+export const ADD_SEARCHED_RESULT_INTO_RESULT_LIST = "ADD_SEARCHED_RESULT_INTO_RESULT_LIST";
 
 /** addMovies() action creator, which is returning the object. */
-export function addMoviesAction(movieList) {
+export function addMovieIntoMovieListAction(movieList) {
    return (
       {
-         type:ADD_MOVIE,
+         type:ADD_MOVIE_INTO_MOVIE_LIST,
          movieList,
       }
    )
 }
 
 /** addToFavourite() action creator */
-export function addToFavouriteAction(movie) {
+export function addMovieIntoFavouriteListAction(movie) {
    return (
       {
-         type:ADD_TO_FAVOURITE,
+         type:ADD_MOVIE_INTO_FAVOURITE_LIST,
          movie,
       }
    )
 }
 
 /** removeFromFavourite() action creator */
-export function removeFromFavouriteAction(movie) {
+export function removeMovieFromFavouriteListAction(movie) {
    return(
       {
-         type:REMOVE_FROM_FAVOURITE,
+         type:REMOVE_MOVIE_FROM_FAVOURITE_LIST,
          movie,
       }
    )
@@ -74,16 +74,16 @@ export function handleMovieSearchAction(inputText) {
       .then(searchedMovie => {
          console.log(searchedMovie);
          // dispatch an action to reducer, which is update the store's searchState result:{} with searchedMovie data.
-         dispatch(addSearchResultAction(searchedMovie));
+         dispatch(addSearchedResultIntoResultListAction(searchedMovie));
       })
    }
 }
 
 /** addSearchResult() action creator. */
-export function addSearchResultAction(resultData) {
+export function addSearchedResultIntoResultListAction(resultData) {
    return(
       {
-         type: ADD_SEARCH_RESULT,
+         type: ADD_SEARCHED_RESULT_INTO_RESULT_LIST,
          resultData,
       }
    )

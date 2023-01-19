@@ -3,7 +3,7 @@ import style from './Navbar.module.css';
 
 
 /** Importing handleMovieSearch() action creator from action */
-import { handleMovieSearchAction, addToFavouriteAction } from '../../actions';
+import { handleMovieSearchAction, addMovieIntoMovieListAction } from '../../actions';
 
 
 export default class Navbar extends Component {
@@ -34,12 +34,13 @@ export default class Navbar extends Component {
   } 
 
   /** Function for handle the search movie add into favourite list */
-  addToFavourite = () => {
+  addToMovie = () => {
     const {resultData:movie, store} = this.props;
     if(movie.Response === "False"){
       return;
     }
-    store.dispatch(addToFavouriteAction(movie));
+    const movieList = [movie];
+    store.dispatch(addMovieIntoMovieListAction(movieList));
   }
 
   render() {
@@ -74,7 +75,7 @@ export default class Navbar extends Component {
                   movie.Response === "True"
                   ? <div className={style.right__block}>
                       <div className={style.title}>{movie.Title}</div>
-                      <div className={style.fav__btn} onClick={this.addToFavourite} >Favourite</div>
+                      <div className={style.fav__btn} onClick={this.addToMovie} > Add to Movie </div>
                     </div>
                   : <div style={{padding:"3px 5px", color:"red", textAlign:"center", fontSize:"14px" }}>404 Movie not found! </div>
                 }

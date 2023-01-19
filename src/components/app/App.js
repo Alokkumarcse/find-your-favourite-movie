@@ -10,7 +10,7 @@ import Footer from '../footer/Footer';
 import {data} from '../data/data';
 
 // importing some actions
-import { addMoviesAction, showFavouriteTabAction } from '../../actions';
+import { addMovieIntoMovieListAction, showFavouriteTabAction } from '../../actions';
 
 class App extends Component {
   componentDidMount() {
@@ -28,7 +28,7 @@ class App extends Component {
     * here writing the action object, we make an action function() known as action creator,
     * which is returning object same as above in dispatch() method.
     */
-    store.dispatch(addMoviesAction(data)); 
+    store.dispatch(addMovieIntoMovieListAction(data)); 
 
     /** after dispatch the action, immediately if any listener is present than they are going to executed,
     * Listener is nothing but a call back function which is perform some async operations.

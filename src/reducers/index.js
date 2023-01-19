@@ -10,7 +10,13 @@
 import { combineReducers } from "redux";
 
 /** importing action types from action. */
-import { ADD_MOVIE, ADD_SEARCH_RESULT, ADD_TO_FAVOURITE, REMOVE_FROM_FAVOURITE, SHOW_FAVOURITE_TAB,  } from "../actions"; 
+import { 
+   ADD_MOVIE_INTO_MOVIE_LIST, 
+   ADD_MOVIE_INTO_FAVOURITE_LIST, 
+   ADD_SEARCHED_RESULT_INTO_RESULT_LIST, 
+   REMOVE_MOVIE_FROM_FAVOURITE_LIST, 
+   SHOW_FAVOURITE_TAB,  
+} from "../actions"; 
 
 /** we change our state from array list to an object, so that we can scale the store state at any level.
 *  reducer always return new state to store and store merge them with older state automatically. 
@@ -28,21 +34,21 @@ const initialMovieState = {
 export function moviesReducer(state = initialMovieState, action ) {
    console.log('Movies Reducer');
    switch(action.type){
-      case ADD_MOVIE: 
+      case ADD_MOVIE_INTO_MOVIE_LIST: 
          return (
             {
                ...state,
-               movieList: action.movieList
+               movieList: [...action.movieList,...state.movieList]
             }
          )
-      case ADD_TO_FAVOURITE:
+      case ADD_MOVIE_INTO_FAVOURITE_LIST:
          return (
             {
                ...state,
                favouriteList: [action.movie, ...state.favouriteList]
             }
          )
-      case REMOVE_FROM_FAVOURITE:
+      case REMOVE_MOVIE_FROM_FAVOURITE_LIST:
          //Remove movie form favouriteList using array filter method to remove.
          const filterFavList = state.favouriteList.filter(movie => movie.Title !== action.movie.Title);
          return(
@@ -75,12 +81,19 @@ const initialSearchState = {
 export function searchReducer(state= initialSearchState, action){
    console.log("Search Reducer")
    switch(action.type){
-      case ADD_SEARCH_RESULT: 
+      case ADD_SEARCHED_RESULT_INTO_RESULT_LIST: 
          return (
             {
                ...state,
                result: action.resultData,
                showSearchedMovie:true,
+            }
+         )
+      case ADD_MOVIE_INTO_MOVIE_LIST: 
+         return(
+            {
+               ...state,
+               showSearchedMovie:false,
             }
          )
       default: return state;
@@ -98,9 +111,9 @@ export function searchReducer(state= initialSearchState, action){
 
 // export default function rootReducer(state= initialRootState, action){
 //    return {
-//       // movies data manage by moviesReducer
+//       /** movies data manage by moviesReducer */
 //       movieState: moviesReducer(state.movieState, action),
-//       // search data manage by searchReducer
+//       /**  search data manage by searchReducer */
 //       searchState: searchReducer(state.searchState, action),
 //    }
 // }
