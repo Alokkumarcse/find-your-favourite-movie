@@ -10,7 +10,7 @@
 import { combineReducers } from "redux";
 
 /** importing action types from action. */
-import { ADD_MOVIE, ADD_TO_FAVOURITE, REMOVE_FROM_FAVOURITE, SHOW_FAVOURITE_TAB,  } from "../actions"; 
+import { ADD_MOVIE, ADD_SEARCH_RESULT, ADD_TO_FAVOURITE, REMOVE_FROM_FAVOURITE, SHOW_FAVOURITE_TAB,  } from "../actions"; 
 
 /** we change our state from array list to an object, so that we can scale the store state at any level.
 *  reducer always return new state to store and store merge them with older state automatically. 
@@ -68,12 +68,23 @@ export function moviesReducer(state = initialMovieState, action ) {
 *   reducer take 2 arguments state and action.
 */
 const initialSearchState = {
-   result:{}
+   result:{},
+   showSearchedMovie: false,
 }
 
 export function searchReducer(state= initialSearchState, action){
    console.log("Search Reducer")
-   return state;
+   switch(action.type){
+      case ADD_SEARCH_RESULT: 
+         return (
+            {
+               ...state,
+               result: action.resultData,
+               showSearchedMovie:true,
+            }
+         )
+      default: return state;
+   }
 }
 
 /** Now I am going to learn how to combine the reducer and make a root reducer,

@@ -20,6 +20,7 @@ export const ADD_TO_FAVOURITE = "ADD_TO_FAVOURITE";
 export const REMOVE_FROM_FAVOURITE ="REMOVE_FROM_FAVOURITE";
 export const SHOW_FAVOURITE_TAB = "SHOW_FAVOURITE_TAB";
 export const HANDLE_MOVIE_SEARCH = "HANDLE_MOVIE_SEARCH";
+export const ADD_SEARCH_RESULT = "ADD_SEARCH_RESULT";
 
 /** addMovies() action creator, which is returning the object. */
 export function addMoviesAction(movieList) {
@@ -70,9 +71,20 @@ export function handleMovieSearchAction(inputText) {
    return function(dispatch) {
       fetch(api)
       .then(resolve => resolve.json())
-      .then(data => {
-         console.log(data);
-         // dispatch an action to reducer to update the store with fetched data
+      .then(searchedMovie => {
+         console.log(searchedMovie);
+         // dispatch an action to reducer, which is update the store's searchState result:{} with searchedMovie data.
+         dispatch(addSearchResultAction(searchedMovie));
       })
    }
+}
+
+/** addSearchResult() action creator. */
+export function addSearchResultAction(resultData) {
+   return(
+      {
+         type: ADD_SEARCH_RESULT,
+         resultData,
+      }
+   )
 }

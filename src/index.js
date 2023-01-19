@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {createStore, applyMiddleware} from 'redux';
+import thunk from 'redux-thunk';
 
 /** Stylesheet of index file imported here */
 import './index.css';
@@ -37,6 +38,7 @@ import combineReducers from './reducers';
 /** we can write middleware in another way using arrow function formate. */
 const loggerMiddleware = ({dispatch, getState}) => (next) => (action) => {
   console.log("Logger Middleware");
+  /** log only those action which is not function type. */
   if(typeof action !== 'function'){
     console.log("Action type", action.type);
   }
@@ -44,14 +46,16 @@ const loggerMiddleware = ({dispatch, getState}) => (next) => (action) => {
 }
 
 /**  creating thunk, it is middleware which is get an action function(dispatch) by returning from action creator. */
-const thunk = ({dispatch, getState}) => (next) => (action) => {
-  /** if our action is an function then invoke that action function with dispatch as a argument to reducer */
-  if(typeof action === 'function'){
-    action(dispatch);
-    return;
-  }
-  next(action);
-}
+// const thunk = ({dispatch, getState}) => (next) => (action) => {
+//   /** if our action is an function then invoke that action function with dispatch as a argument to reducer. */
+//   if(typeof action === 'function'){
+//     action(dispatch);
+//     return;
+//   }
+//   /** if not action is not function than simply pass the action returning an object to reducer. */
+//   next(action);
+// }
+/** Thunk is handle by redux, so use thunk from library, which is same as the above we write the thunk. */
 
 
 /**

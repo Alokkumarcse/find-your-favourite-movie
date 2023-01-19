@@ -71,7 +71,9 @@ class App extends Component {
     const {movieState, searchState} = store.getState();
 
     // { movieList: [], favouriteList: [], showFavouriteTab:boolean } in our movieState's data, so access by moviesState object.
-    const {movieList, favouriteList, showFavouriteTab} = movieState; 
+    const {movieList, favouriteList, showFavouriteTab } = movieState; 
+    /** { result:{}, showSearchedMovie:boolean} in our searchState'data, so it is access by searchState object. */
+    const { result, showSearchedMovie } = searchState;
 
     //select which list is going to shown
     const displayList = showFavouriteTab ? favouriteList: movieList;
@@ -82,7 +84,7 @@ class App extends Component {
     return (
       <div className={style.app}>
         {/* Rendering Navbar component here */}
-        <Navbar store={store} />
+        <Navbar store={store} resultData={result} showSearchedMovie={showSearchedMovie} />
 
         <main className="">
           {/* Movie and Favourite tabs of app */}

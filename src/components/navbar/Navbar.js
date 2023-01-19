@@ -3,7 +3,7 @@ import style from './Navbar.module.css';
 
 
 /** Importing handleMovieSearch() action creator from action */
-import { handleMovieSearchAction } from '../../actions';
+import { handleMovieSearchAction, addToFavouriteAction } from '../../actions';
 
 
 export default class Navbar extends Component {
@@ -12,7 +12,6 @@ export default class Navbar extends Component {
     super();
     this.state = {
       inputText:'',
-      showSearchedMovie: true,
     }
   }
 
@@ -34,22 +33,56 @@ export default class Navbar extends Component {
     store.dispatch(handleMovieSearchAction(inputText));
   } 
 
+  /** Function for handle the search movie add into favourite list */
+  addToFavourite = () => {
+    const {resultData:movie, store} = this.props;
+    if(movie.Response === "False"){
+      return;
+    }
+    store.dispatch(addToFavouriteAction(movie));
+  }
+
   render() {
+    const {resultData: movie, showSearchedMovie } = this.props;
     return (
-      <nav className={style.nav}>
-         <div className={style.search__box}>
-            <input 
-              type="text" 
-              className={style.input}
-              placeholder="search here..."
-              onChange={this.inputTextForSearch}
-            />
-            <button 
-              className={style.search} 
-              onClick={this.handleSearch}
-            > search</button>
-         </div>
-      </nav>
+        <nav className={style.nav}>
+          <div >
+            <div className={style.search__box}>
+              <input 
+                type="text" 
+                className={style.input}
+                placeholder="search here..."
+                onChange={this.inputTextForSearch}
+              />
+              <button 
+                className={style.search} 
+                onClick={this.handleSearch}
+              > search</button>
+            </div>
+          </div>
+          {/* show search result as movie card if any found */}
+          <div className='movie__card'>
+            {
+              showSearchedMovie && 
+              <div className={style.movie__card}>
+                { 
+                  movie.Response === "True"
+                  ? <img className={style.img} src={movie.Poster} alt='movie' /> 
+                  : null
+                }
+                {
+                  movie.Response === "True"
+                  ? <div className={style.right__block}>
+                      <div className={style.title}>{movie.Title}</div>
+                      <div className={style.fav__btn} onClick={this.addToFavourite} >Favourite</div>
+                    </div>
+                  : <div style={{padding:"3px 5px", color:"red", textAlign:"center", fontSize:"14px" }}>404 Movie not found! </div>
+                }
+              </div> 
+            }
+          </div> 
+        </nav>
+       
     )
   }
 }
