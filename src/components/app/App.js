@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 
 // importing styles for App component
 import style from './App.module.css';
@@ -11,6 +11,8 @@ import {data} from '../data/data';
 
 // importing some actions
 import { addMovieIntoMovieListAction, showFavouriteTabAction } from '../../actions';
+// importing context form index.js
+import { StoreContext } from '../../index';
 
 class App extends Component {
   componentDidMount() {
@@ -82,6 +84,7 @@ class App extends Component {
     console.log("Re-render");
 
     return (
+      
       <div className={style.app}>
         {/* Rendering Navbar component here */}
         <Navbar store={store} resultData={result} showSearchedMovie={showSearchedMovie} />
@@ -127,4 +130,15 @@ class App extends Component {
   }
 }
 
-export default App;
+/** Create AppWrapper to use store everywhere in App components */
+class AppWrapper extends React.Component {
+  render(){
+    return (
+      <StoreContext.Consumer>
+        { (store) => <App store={store} />}
+      </StoreContext.Consumer>
+    )
+  }
+}
+
+export default AppWrapper;
