@@ -87,7 +87,7 @@ class App extends Component {
       
       <div className={style.app}>
         {/* Rendering Navbar component here */}
-        <Navbar store={store} resultData={result} showSearchedMovie={showSearchedMovie} />
+        <Navbar resultData={result} showSearchedMovie={showSearchedMovie} />
 
         <main className="">
           {/* Movie and Favourite tabs of app */}
@@ -130,7 +130,10 @@ class App extends Component {
   }
 }
 
-/** Create AppWrapper to use store everywhere in App components */
+/** Create AppWrapper to use store everywhere in App components.
+ * store come through context Consumer.
+ * whenever any value changed in store than app going to re-render.
+*/
 class AppWrapper extends React.Component {
   render(){
     return (

@@ -4,9 +4,10 @@ import style from './Navbar.module.css';
 
 /** Importing handleMovieSearch() action creator from action */
 import { handleMovieSearchAction, addMovieIntoMovieListAction } from '../../actions';
+import { StoreContext } from '../..';
 
 
-export default class Navbar extends Component {
+class Navbar extends Component {
   /** create a state which is hold input text given by user */
   constructor() {
     super();
@@ -46,44 +47,59 @@ export default class Navbar extends Component {
   render() {
     const {resultData: movie, showSearchedMovie } = this.props;
     return (
-        <nav className={style.nav}>
-          <div >
-            <div className={style.search__box}>
-              <input 
-                type="text" 
-                className={style.input}
-                placeholder="search here..."
-                onChange={this.inputTextForSearch}
-              />
-              <button 
-                className={style.search} 
-                onClick={this.handleSearch}
-              > search</button>
-            </div>
+      <nav className={style.nav}>
+        <div >
+          <div className={style.search__box}>
+            <input 
+              type="text" 
+              className={style.input}
+              placeholder="search here..."
+              onChange={this.inputTextForSearch}
+            />
+            <button 
+              className={style.search} 
+              onClick={this.handleSearch}
+            > search</button>
           </div>
-          {/* show search result as movie card if any found */}
-          <div className='movie__card'>
-            {
-              showSearchedMovie && 
-              <div className={style.movie__card}>
-                { 
-                  movie.Response === "True"
-                  ? <img className={style.img} src={movie.Poster} alt='movie' /> 
-                  : null
-                }
-                {
-                  movie.Response === "True"
-                  ? <div className={style.right__block}>
-                      <div className={style.title}>{movie.Title}</div>
-                      <div className={style.fav__btn} onClick={this.addToMovie} > Add to Movie </div>
-                    </div>
-                  : <div style={{padding:"3px 5px", color:"red", textAlign:"center", fontSize:"14px" }}>404 Movie not found! </div>
-                }
-              </div> 
-            }
-          </div> 
-        </nav>
-       
+        </div>
+        {/* show search result as movie card if any found */}
+        <div className='movie__card'>
+          {
+            showSearchedMovie && 
+            <div className={style.movie__card}>
+              { 
+                movie.Response === "True"
+                ? <img className={style.img} src={movie.Poster} alt='movie' /> 
+                : null
+              }
+              {
+                movie.Response === "True"
+                ? <div className={style.right__block}>
+                    <div className={style.title}>{movie.Title}</div>
+                    <div className={style.fav__btn} onClick={this.addToMovie} > Add to Movie </div>
+                  </div>
+                : <div style={{padding:"3px 5px", color:"red", textAlign:"center", fontSize:"14px" }}>404 Movie not found! </div>
+              }
+            </div> 
+          }
+        </div> 
+      </nav>
     )
   }
 }
+
+/** Navbar Wrapper component, which is get access of store via context Consumer */
+class NavbarWrapper extends React.Component{
+  render() {
+    const {resultData, showSearchedMovie} = this.props;
+    return (
+      <StoreContext.Consumer>
+        {
+          (store) => <Navbar store={store} resultData={resultData} showSearchedMovie={showSearchedMovie} />
+        }
+      </StoreContext.Consumer>
+    )
+  }
+}
+
+export default NavbarWrapper;

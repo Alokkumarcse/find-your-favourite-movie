@@ -72,6 +72,11 @@ const store = createStore(combineReducers, applyMiddleware(loggerMiddleware, thu
 /** creating the context to save form prop drilling */
 export const StoreContext = createContext();
 console.log("storeContext", StoreContext );
+/** Creating own Provider component and store can be accessed by all the descendants.
+ * in context provider we set value={...}
+ * whenever any change happen inside  value all child component accessed the context value is re-render.
+ * so we not need to pass store as props in descendants.
+*/
 class Provider extends React.Component {
   render() {
     const {store} = this.props;
@@ -97,6 +102,7 @@ class Provider extends React.Component {
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    {/* Pass store as props to Provider and Rendering App component inside Provider component */}
     <Provider store={store}>
       <App />
     </Provider>
