@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createContext } from 'react';
 import ReactDOM from 'react-dom/client';
 import {createStore, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
@@ -69,6 +69,21 @@ const store = createStore(combineReducers, applyMiddleware(loggerMiddleware, thu
 // console.log(store);
 // console.log(store.getState());
 
+/** creating the context to save form prop drilling */
+export const StoreContext = createContext();
+console.log("storeContext", StoreContext );
+class Provider extends React.Component {
+  render() {
+    const {store} = this.props;
+    return(
+      <StoreContext.Provider value={store}> 
+        {this.props.children}
+      </StoreContext.Provider>
+    )
+  }
+
+}
+
 /* Dispatch the action to reducer like this.*/
 // store.dispatch({
 //   type:'ADD_MOVIE',
@@ -83,7 +98,9 @@ const store = createStore(combineReducers, applyMiddleware(loggerMiddleware, thu
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App store={store} />
+    <Provider store={store}>
+      <App store={store} />
+    </Provider>
   </React.StrictMode>
 );
 
