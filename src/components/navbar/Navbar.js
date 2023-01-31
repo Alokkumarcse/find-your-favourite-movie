@@ -25,7 +25,7 @@ class Navbar extends Component {
 
   /** Function for handle the search button click event, It Fetch movie data from OMDB api by help of Redux-Thunk middleware
   *   and show the result in from of single movie card
-  */
+   */
   handleSearch = () => {
     /** get input text from state and store from props */
     const {inputText} = this.state;
@@ -33,6 +33,19 @@ class Navbar extends Component {
     /** dispatch handleMovieSearch() action to fetch data form api, store fetched into search result{} store state. */
     store.dispatch(handleMovieSearchAction(inputText));
   } 
+  handleSearch1 = (event) => {
+    console.log(" Handle Search enter method ");
+    if(event.keyCode === 13){
+      this.handleSearch();
+      return;
+    }
+    // const {inputText} = this.state;
+    // const {store} = this.props;
+    // if(event.keyCode === 13){
+    //   store.dispatch(handleMovieSearchAction(inputText));
+    //   return;
+    // }
+  }
 
   /** Function for handle the search movie add into favourite list */
   addToMovie = () => {
@@ -43,7 +56,8 @@ class Navbar extends Component {
     const movieList = [movie];
     store.dispatch(addMovieIntoMovieListAction(movieList));
   }
-
+  
+  /** jsx of Navbar ui */
   render() {
     const {resultData: movie, showSearchedMovie } = this.props;
     return (
@@ -55,6 +69,7 @@ class Navbar extends Component {
               className={style.input}
               placeholder="search here..."
               onChange={this.inputTextForSearch}
+              onKeyDown={this.handleSearch1}
             />
             <button 
               className={style.search} 

@@ -21,7 +21,7 @@ export default class MovieCard extends Component {
       dispatch(removeMovieFromFavouriteListAction(movie));
    }
    
-   /** Rendering our component */
+   /** jsx of movie card ui */
    render() {
       const {movie, isFavourite} = this.props; 
       return (

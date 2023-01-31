@@ -83,8 +83,8 @@ class App extends Component {
     console.log(this.props.store.getState());
     console.log("Re-render");
 
+    /** jsx of App ui */
     return (
-      
       <div className={style.app}>
         {/* Rendering Navbar component here */}
         <Navbar resultData={result} showSearchedMovie={showSearchedMovie} />
@@ -143,5 +143,14 @@ class AppWrapper extends React.Component {
     )
   }
 }
+
+// function callback(state){
+//   return {
+//     movieState: state.movieReducer,
+//     searchState: state.searchReducer,
+//   }
+// }
+
+// const connectedAppComponent = connect(callback)(App);
 
 export default AppWrapper;
