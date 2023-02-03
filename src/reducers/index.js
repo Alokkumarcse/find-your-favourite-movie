@@ -32,7 +32,7 @@ const initialMovieState = {
 }
 
 export function moviesReducer(state = initialMovieState, action ) {
-   console.log('Movies Reducer');
+   // console.log('Movies Reducer');
    switch(action.type){
       case ADD_MOVIE_INTO_MOVIE_LIST: 
          return (
@@ -79,7 +79,7 @@ const initialSearchState = {
 }
 
 export function searchReducer(state= initialSearchState, action){
-   console.log("Search Reducer")
+   // console.log("Search Reducer")
    switch(action.type){
       case ADD_SEARCHED_RESULT_INTO_RESULT_LIST: 
          return (

@@ -13,6 +13,9 @@ import {data} from '../data/data';
 import { addMovieIntoMovieListAction, showFavouriteTabAction } from '../../actions';
 // importing context form index.js
 import { StoreContext } from '../../index';
+// not need of StoreContext anymore bcz I am using the connectComponent way to get Redux store
+// so need to  import connect() method from /src/index.js
+import {connect} from '../../index'; 
 
 class App extends Component {
   componentDidMount() {
@@ -134,23 +137,33 @@ class App extends Component {
  * store come through context Consumer.
  * whenever any value changed in store than app going to re-render.
 */
-class AppWrapper extends React.Component {
-  render(){
-    return (
-      <StoreContext.Consumer>
-        { (store) => <App store={store} />}
-      </StoreContext.Consumer>
-    )
-  }
-}
-
-// function callback(state){
-//   return {
-//     movieState: state.movieReducer,
-//     searchState: state.searchReducer,
+// class AppWrapper extends React.Component {
+//   render(){
+//     return (
+//       <StoreContext.Consumer>
+//         { (store) => <App store={store} />}
+//       </StoreContext.Consumer>
+//     )
 //   }
 // }
 
-// const connectedAppComponent = connect(callback)(App);
+/** Here Implementing the connectedComponent using connect() method to connect the Redux store and pass
+ * the store state data as pops to component which is pass as argument.
+ * connect method taking callback() method and component as argument and return a new connectedComponent.
+ * connect() method by default pass the Dispatch method as props to component.
+ * only those component will re-render which is connected, whenever the used store data will changed.
+ * callback() method renamed as stateMapToStore().
+ * 
+ * Now here, use connected component so no need of Wrap the App component ie AppWrapper component. 
+ */
+// callback function which is returning the redux store state. which is pass as props to App component.
+function stateMapToStore(state){
+  return {
+    movieState: state.movieReducer,
+    searchState: state.searchReducer,
+  }
+}
+// connectedComponent = connect(callback)(component)
+const connectedAppComponent = connect(stateMapToStore)(App);
 
-export default AppWrapper;
+export default connectedAppComponent;

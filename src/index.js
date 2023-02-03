@@ -52,7 +52,7 @@ const loggerMiddleware = ({dispatch, getState}) => (next) => (action) => {
 //     action(dispatch);
 //     return;
 //   }
-//   /** if not action is not function than simply pass the action returning an object to reducer. */
+//   /** if action is not function than simply pass the action returning an object to reducer. */
 //   next(action);
 // }
 /** Thunk is handle by redux, so use thunk from library, which is same as the above we write the thunk. */
@@ -94,6 +94,21 @@ class Provider extends React.Component {
 //   movie:[{name:"superman", release:2013}]
 // });
 // console.log(store.getState());
+
+/** 
+ * Implementing connect method which is connect to Redux store
+ * connect(callback)(component) method return new connected component. 
+ * connect(callback) returning another function(), which is taking function(component) as argument,
+ * now function(component) returning new component.
+ */
+function connect(callback){
+  return function(component){
+    return 
+
+    }
+  }
+
+}
 
 /** make root place in index.html, there we add whole app code to append in html and make a dom
 *   ReactDOM help to create virtual dom and help us sync with real dom of app
