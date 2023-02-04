@@ -1,7 +1,8 @@
-import React, { createContext } from 'react';
+import React,{createContext} from 'react';
 import ReactDOM from 'react-dom/client';
 import {createStore, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
+// import { Provider } from 'react-redux';
 
 /** Stylesheet of index file imported here */
 import './index.css';
@@ -9,12 +10,12 @@ import './index.css';
 import App from './components/app/App';
 
 /** Import reducer to use as argument in createStore() to create store in Redux */
-// import rootReducer from './reducers';
+import rootReducer from './reducers';
 /** importing combined reducer */
-import combineReducers from './reducers';
+// import combineReducers from './reducers';
 
 
-/** add middleware in app to perform some other operations, which is happen after trigger the action 
+/** add middleware in app to perform some other operations or side effects, which is happen after trigger the action 
 *   and action reach to the reducer via dispatcher.
 *   middleware take argument as (object, next, action) , next() take argument as a next middleware,
 *   if not any middleware then dispatch the action to reducer. 
@@ -23,7 +24,6 @@ import combineReducers from './reducers';
 /** we write here loggerMiddleware function loggerMiddleware(obj, next, action)
 *   we executed loggerMiddleware in curried from of function like this loggerMiddleware({object})(next)(action) 
 */
-
 // const loggerMiddleware = function({dispatch, getState}){
 //   return function(next) {
 //     return function(action){
@@ -65,13 +65,14 @@ const loggerMiddleware = ({dispatch, getState}) => (next) => (action) => {
 *   here we can pass any middleware by using applyMiddleware(middleware name) method
 */
 // const store = createStore(rootReducer, applyMiddleware(loggerMiddleware, thunk) );
-const store = createStore(combineReducers, applyMiddleware(loggerMiddleware, thunk) );
+const store = createStore(rootReducer, applyMiddleware(loggerMiddleware, thunk) );
 // console.log(store);
 // console.log(store.getState());
 
 /** creating the context to save form prop drilling */
 export const StoreContext = createContext();
 console.log("storeContext", StoreContext );
+
 /** Creating own Provider component and store can be accessed by all the descendants.
  * in context provider we set value={...}
  * whenever any change happen inside  value all child component accessed the context value is re-render.
@@ -80,6 +81,7 @@ console.log("storeContext", StoreContext );
 class Provider extends React.Component {
   render() {
     const {store} = this.props;
+    console.log(store.getState());
     return(
       <StoreContext.Provider value={store}> 
         {this.props.children}
@@ -101,14 +103,47 @@ class Provider extends React.Component {
  * connect(callback) returning another function(), which is taking function(component) as argument,
  * now function(component) returning new component.
  */
-function connect(callback){
-  return function(component){
-    return 
+// export function connect(callback){
+//   return function(Component){
+//     // making ConnectedComponent using component which is coming as parameter.
+//     class ConnectedComponent extends React.Component{
+//       /** 
+//       * Need to subscribe the store so whenever any change happen component re-render.
+//       * but here some problem here, we have no access of store here so we need to make a connectedComponentWrapper
+//       * share store in constructor as well.
+//       */
+//       constructor(props){
+//         super(props);
+//         // subscribe() method return a function, which will be used in unsubscribe the store to prevent memory leak.
+//         this.unsubscribe = this.props.store.subscribe(() => this.forceUpdate());
+//       } 
+//       // unsubscribe the store
+//       componentWillUnmount() {
+//         this.unsubscribe();
+//       }
+//       render() {
+//         const {store} = this.props;
+//         const state = store.getState();
+//         const dataToPassAsProps = callback(state);
 
-    }
-  }
-
-}
+//         return(
+//           <Component {...dataToPassAsProps} dispatch={store.dispatch}/>
+//         );
+//       }
+//     } 
+//     class ConnectedComponentWrapper extends React.Component{
+//       render(){
+//         console.log(store.getState());
+//         return(
+//           <StoreContext.Consumer >
+//             {(store) => <ConnectedComponent store={store}/>}
+//           </StoreContext.Consumer>
+//         );
+//       }
+//     }
+//     return ConnectedComponentWrapper;
+//   }
+// }
 
 /** make root place in index.html, there we add whole app code to append in html and make a dom
 *   ReactDOM help to create virtual dom and help us sync with real dom of app

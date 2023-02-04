@@ -38,7 +38,7 @@ export function moviesReducer(state = initialMovieState, action ) {
          return (
             {
                ...state,
-               movieList: [...action.movieList,...state.movieList]
+               movieList: [...action.movieList, ...state.movieList]
             }
          )
       case ADD_MOVIE_INTO_FAVOURITE_LIST:
@@ -119,7 +119,7 @@ export function searchReducer(state= initialSearchState, action){
 // }
 
 /** we not need to create rootReducer by self, it is created by redux for us which is combineReducers() method. 
-*  internally combineReducers same as rootReducer we create above. 
+*  internally combineReducers same as rootReducer we created above. 
 */
 export default combineReducers({
    movieState: moviesReducer,

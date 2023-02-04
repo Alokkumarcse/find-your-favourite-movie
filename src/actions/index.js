@@ -3,12 +3,11 @@
 *   and dispatcher() method dispatch to the reducer to perform that action. 
 */
 
-
-/** How to write the action ?
-*   what is the action how to defined it ?
-*   In redux, action is simple javascript object which is dispatch by dispatcher and tell reducer what to do.
-*/
-
+/**
+ *  How to write the action ?
+ *   what is the action how to defined it ?
+ *   In redux, action is simple javascript object which is dispatch by dispatcher and tell reducer what to do.
+ */
 // {
 //    type: "REMOVE_MOVIE",
 //    movie: {hello: "javascript"},

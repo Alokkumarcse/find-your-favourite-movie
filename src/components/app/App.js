@@ -5,7 +5,6 @@ import style from './App.module.css';
 // importing various components 
 import Navbar from '../navbar/Navbar';
 import MovieCard from '../movie-card/MovieCard';
-import Footer from '../footer/Footer';
 // we use some static data as of now bcz not making any api call to get data.
 import {data} from '../data/data';
 
@@ -13,9 +12,10 @@ import {data} from '../data/data';
 import { addMovieIntoMovieListAction, showFavouriteTabAction } from '../../actions';
 // importing context form index.js
 import { StoreContext } from '../../index';
-// not need of StoreContext anymore bcz I am using the connectComponent way to get Redux store
-// so need to  import connect() method from /src/index.js
-import {connect} from '../../index'; 
+// // not need of StoreContext anymore bcz I am using the connectComponent way to get Redux store
+// // so need to  import connect() method from /src/index.js
+// import {connect} from '../../index'; 
+// import {connect} from 'react-redux';
 
 class App extends Component {
   componentDidMount() {
@@ -71,6 +71,7 @@ class App extends Component {
   
   // Render component
   render() { 
+    // console.log(this.props);
     const {store} = this.props;
     // our store state looks like this { movieState:{}, searchState:{} } bcz of combining of many reducer in one rootReducer.
     const {movieState, searchState} = store.getState();
@@ -83,8 +84,8 @@ class App extends Component {
     //select which list is going to shown
     const displayList = showFavouriteTab ? favouriteList: movieList;
     
-    console.log(this.props.store.getState());
-    console.log("Re-render");
+    // console.log(this.props.store.getState());
+    // console.log("Re-render");
 
     /** jsx of App ui */
     return (
@@ -112,22 +113,19 @@ class App extends Component {
                 <MovieCard 
                   movie={movie} 
                   key={`movie${index}`} 
-                  dispatch={store.dispatch}  
+                  dispatch={this.props.store.dispatch}  
                   isFavourite={this.isFavourite(movie)}
                 />
               )})
             }
           </div>
-          {/* this logic for show message when favourte list is empty and we click on the favourite tab */}
+          {/* this logic for show message when favourite list is empty and we click on the favourite tab */}
           {
             displayList.length === 0 
             ? <div style={{textAlign:"center", padding:"10px", fontSize:"16px"}}>No movie in Favourite list:)</div>
             : null
           }
         </main>
-
-        {/* Rendering Footer component here */}
-        <Footer />
       </div>
     );
   }
@@ -137,15 +135,16 @@ class App extends Component {
  * store come through context Consumer.
  * whenever any value changed in store than app going to re-render.
 */
-// class AppWrapper extends React.Component {
-//   render(){
-//     return (
-//       <StoreContext.Consumer>
-//         { (store) => <App store={store} />}
-//       </StoreContext.Consumer>
-//     )
-//   }
-// }
+class AppWrapper extends React.Component {
+  render(){
+    return (
+      <StoreContext.Consumer>
+        { (store) => <App store={store} />}
+      </StoreContext.Consumer>
+    )
+  }
+}
+export default AppWrapper;
 
 /** Here Implementing the connectedComponent using connect() method to connect the Redux store and pass
  * the store state data as pops to component which is pass as argument.
@@ -157,13 +156,12 @@ class App extends Component {
  * Now here, use connected component so no need of Wrap the App component ie AppWrapper component. 
  */
 // callback function which is returning the redux store state. which is pass as props to App component.
-function stateMapToStore(state){
-  return {
-    movieState: state.movieReducer,
-    searchState: state.searchReducer,
-  }
-}
-// connectedComponent = connect(callback)(component)
-const connectedAppComponent = connect(stateMapToStore)(App);
-
-export default connectedAppComponent;
+// function mapStateToStore(state){
+//   return {
+//     movieState: state.moviesReducer,
+//     searchState: state.searchReducer,
+//   }
+// }
+// // connectedComponent = connect(callback)(component)
+// const ConnectedAppComponent = connect(mapStateToStore)(App);
+// export default ConnectedAppComponent;
